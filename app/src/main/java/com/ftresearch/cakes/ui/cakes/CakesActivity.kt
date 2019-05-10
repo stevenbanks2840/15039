@@ -1,6 +1,8 @@
 package com.ftresearch.cakes.ui.cakes
 
+import android.app.ActivityOptions
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ftresearch.cakes.R
 import com.ftresearch.cakes.rest.cake.Cake
 import com.ftresearch.cakes.ui.Resource
+import com.ftresearch.cakes.ui.cakedetail.CakeDetailActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_cakes.*
@@ -70,8 +73,12 @@ class CakesActivity : DaggerAppCompatActivity() {
         recyclerView.scheduleLayoutAnimation()
     }
 
-    private fun showCake(cake: Cake) {
-        // TODO: Show cake detail
+    private fun showCake(cake: Cake, sharedImageView: ImageView) {
+        sharedImageView.transitionName?.let {
+            val options = ActivityOptions.makeSceneTransitionAnimation(this, sharedImageView, it)
+            val intent = CakeDetailActivity.createIntent(this, cake)
+            startActivity(intent, options.toBundle())
+        }
     }
 
     private fun showError(message: String) =

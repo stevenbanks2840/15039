@@ -3,6 +3,7 @@ package com.ftresearch.cakes.ui.cakes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -10,7 +11,7 @@ import com.ftresearch.cakes.R
 import com.ftresearch.cakes.rest.cake.Cake
 import kotlinx.android.synthetic.main.list_item_cake.view.*
 
-class CakeAdapter(private val onClick: (Cake) -> Unit) : RecyclerView.Adapter<CakeAdapter.ViewHolder>() {
+class CakeAdapter(private val onClick: (Cake, ImageView) -> Unit) : RecyclerView.Adapter<CakeAdapter.ViewHolder>() {
 
     var cakes: List<Cake> = emptyList()
         set(value) {
@@ -33,14 +34,17 @@ class CakeAdapter(private val onClick: (Cake) -> Unit) : RecyclerView.Adapter<Ca
 
         holder.itemView.apply {
             cakeTitle.text = cake.title
+            cakeImage.transitionName = cake.title
 
             Glide.with(this)
                     .load(cake.image)
                     .placeholder(R.drawable.placeholder_image)
+                    .override(64, 64) // TODO: Use thumbnails and scaling/aspect ratio
+                    .centerCrop()
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(cakeImage)
 
-            setOnClickListener { onClick(cake) }
+            setOnClickListener { onClick(cake, cakeImage) }
         }
     }
 }
