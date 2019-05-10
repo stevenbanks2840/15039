@@ -30,7 +30,9 @@ task clean(type: Delete) {
 ext {
     dagger = "2.17"
     dagger_android = "2.15"
+    dagger_mock = "0.8.5"
 
+    glide = "4.9.0"
     gson_version = "2.8.5"
 
     retrofit_version = "2.5.0"

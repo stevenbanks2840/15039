@@ -1,6 +1,6 @@
 package com.ftresearch.cakes.di
 
-import com.ftresearch.cakes.MainActivity
+import com.ftresearch.cakes.ui.cakes.CakesActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -8,5 +8,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector
-    abstract fun mainActivity(): MainActivity
+    abstract fun cakesActivity(): CakesActivity
 }
