@@ -75,10 +75,12 @@ class CakesViewModelTest {
         assertEquals(ERROR, errorResource.message)
     }
 
-    private val lifecycleOwner = mock<LifecycleOwner>().also {
-        val lifecycle = LifecycleRegistry(it)
-        whenever(it.lifecycle).doReturn(lifecycle)
-        lifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    private val lifecycleOwner by lazy {
+        mock<LifecycleOwner>().also {
+            val lifecycle = LifecycleRegistry(it)
+            whenever(it.lifecycle).doReturn(lifecycle)
+            lifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
+        }
     }
 
     companion object {

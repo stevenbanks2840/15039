@@ -42,7 +42,7 @@ class CakesActivity : DaggerAppCompatActivity() {
         }
 
         viewModel = ViewModelProviders.of(this, viewModeFactory).get(CakesViewModel::class.java)
-                .apply { init() }
+            .apply { init() }
 
         viewModel.cakes.observe(this, Observer {
             when (it.status) {
@@ -82,8 +82,8 @@ class CakesActivity : DaggerAppCompatActivity() {
     }
 
     private fun showError(message: String) =
-            Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Retry") {
-                        viewModel.refresh()
-                    }.show()
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_INDEFINITE)
+            .setAction("Retry") {
+                viewModel.refresh()
+            }.show()
 }
