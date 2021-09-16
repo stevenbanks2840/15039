@@ -12,21 +12,19 @@ import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Component(
-        modules = [
-            RootModule::class,
-            RestModule::class,
-            ViewModelModule::class,
-            ViewModelFactoryModule::class,
-            ActivityBindingModule::class,
-            AndroidSupportInjectionModule::class]
+    modules = [
+        RootModule::class,
+        RestModule::class,
+        ViewModelModule::class,
+        ViewModelFactoryModule::class,
+        ActivityBindingModule::class,
+        AndroidSupportInjectionModule::class]
 )
 @Singleton
 interface RootComponent : AndroidInjector<DaggerApplication> {
 
     fun inject(application: CakesApplication)
-
     fun inject(activity: CakesActivity)
-
     fun inject(activity: CakeDetailActivity)
 
     @Component.Builder

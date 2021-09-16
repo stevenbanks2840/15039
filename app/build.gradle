@@ -55,6 +55,7 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$androidx_swiperefreshlayout_version"
     implementation "com.google.android.material:material:$androidx_material_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_extensions_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_viewmodel_ktx"
 
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.robolectric:robolectric:$robolectric_version"

@@ -32,11 +32,11 @@ class CakesActivityTest {
         on { cakes } doReturn (cakesMock)
     }
 
-    private lateinit var activity: CakesActivity
+    private lateinit var sut: CakesActivity
 
     @Before
     fun setUp() {
-        activity = buildActivity(CakesActivity::class.java).setup().get()
+        sut = buildActivity(CakesActivity::class.java).setup().get()
     }
 
     @Test

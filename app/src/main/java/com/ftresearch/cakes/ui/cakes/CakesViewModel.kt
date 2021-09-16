@@ -3,19 +3,20 @@ package com.ftresearch.cakes.ui.cakes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ftresearch.cakes.DispatcherProvider
+import com.ftresearch.cakes.extensions.exhaustive
 import com.ftresearch.cakes.rest.cake.Cake
-import com.ftresearch.cakes.services.cake.CakeService
 import com.ftresearch.cakes.ui.Resource
-import kotlinx.coroutines.CoroutineScope
+import com.ftresearch.cakes.ui.cakes.GetCakesUseCase.GetCakesResult.Failure
+import com.ftresearch.cakes.ui.cakes.GetCakesUseCase.GetCakesResult.Success
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CakesViewModel @Inject constructor(
-        private val cakeService: CakeService,
-        dispatcherProvider: DispatcherProvider) : ViewModel() {
-
-    private val scope = CoroutineScope(dispatcherProvider.io)
+    private val getCakesUseCase: GetCakesUseCase,
+    private val dispatcherProvider: DispatcherProvider
+) : ViewModel() {
 
     val cakes: LiveData<Resource<List<Cake>>>
         get() = cakesResource
@@ -33,12 +34,19 @@ class CakesViewModel @Inject constructor(
     private fun loadCakes() {
         cakesResource.postValue(Resource(Resource.Status.LOADING))
 
-        scope.launch {
-            cakeService.getCakes(::onSuccess, ::onError)
+        viewModelScope.launch(dispatcherProvider.io) {
+            val result = getCakesUseCase.getCakes()
+
+            when (result) {
+                is Success -> onSuccess(result)
+                is Failure -> onError(result)
+            }.exhaustive
         }
     }
 
-    private fun onSuccess(cakes: List<Cake>) = cakesResource.postValue(Resource(Resource.Status.SUCCESS, cakes))
+    private fun onSuccess(result: Success) =
+        cakesResource.postValue(Resource(Resource.Status.SUCCESS, result.cakes))
 
-    private fun onError(message: String) = cakesResource.postValue(Resource(Resource.Status.ERROR, null, message))
+    private fun onError(result: Failure) =
+        cakesResource.postValue(Resource(Resource.Status.ERROR, null, result.exception.message))
 }

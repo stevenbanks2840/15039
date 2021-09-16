@@ -3,8 +3,8 @@ package com.ftresearch.cakes.di
 import androidx.lifecycle.ViewModel
 import com.ftresearch.cakes.DispatcherProvider
 import com.ftresearch.cakes.di.viewmodelfactory.ViewModelKey
-import com.ftresearch.cakes.services.cake.CakeService
 import com.ftresearch.cakes.ui.cakes.CakesViewModel
+import com.ftresearch.cakes.ui.cakes.GetCakesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -13,8 +13,10 @@ import dagger.multibindings.IntoMap
 class ViewModelModule {
 
     @Provides
-    fun providesCakesViewModel(cakeService: CakeService, dispatcherProvider: DispatcherProvider) =
-            CakesViewModel(cakeService, dispatcherProvider) // DaggerMock only support @Provides
+    fun providesCakesViewModel(
+        getCakesUseCase: GetCakesUseCase,
+        dispatcherProvider: DispatcherProvider
+    ) = CakesViewModel(getCakesUseCase, dispatcherProvider) // DaggerMock only support @Provides
 
     @Provides
     @IntoMap
