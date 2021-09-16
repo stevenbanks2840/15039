@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.ftresearch.cakes.R
+import com.ftresearch.cakes.extensions.requireParcelableExtra
 import com.ftresearch.cakes.rest.cake.Cake
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_cake_detail.*
@@ -29,29 +30,40 @@ class CakeDetailActivity : DaggerAppCompatActivity() {
 
         supportPostponeEnterTransition()
 
-        val cake = intent?.extras?.getSerializable(EXTRA_CAKE) as Cake
+        val cake = intent.requireParcelableExtra<Cake>(EXTRA_CAKE)
 
         title = cake.title
         cakeDetailDescription.text = cake.desc
         cakeDetailImage.transitionName = cake.title
 
         Glide.with(this) // TODO: Reduce hardcoded reference to 3rd party library by injecting a wrapper
-                .load(cake.image)
-                .placeholder(R.drawable.placeholder_image)
-                .override(1000, 1000) // TODO: Scaling/aspect ratio
-                .centerCrop()
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        supportStartPostponedEnterTransition()
-                        return true
-                    }
+            .load(cake.image)
+            .placeholder(R.drawable.placeholder_image)
+            .override(1000, 1000) // TODO: Scaling/aspect ratio
+            .centerCrop()
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    supportStartPostponedEnterTransition()
+                    return true
+                }
 
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        supportStartPostponedEnterTransition()
-                        return false
-                    }
-                })
-                .into(cakeDetailImage)
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    supportStartPostponedEnterTransition()
+                    return false
+                }
+            })
+            .into(cakeDetailImage)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -69,6 +81,6 @@ class CakeDetailActivity : DaggerAppCompatActivity() {
         private const val EXTRA_CAKE = "cakeExtra"
 
         fun createIntent(context: Context, cake: Cake): Intent =
-                Intent(context, CakeDetailActivity::class.java).putExtra(EXTRA_CAKE, cake)
+            Intent(context, CakeDetailActivity::class.java).putExtra(EXTRA_CAKE, cake)
     }
 }
