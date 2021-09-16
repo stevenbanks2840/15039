@@ -5,12 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.test.core.app.ApplicationProvider
 import com.ftresearch.cakes.di.RootComponent
 import com.ftresearch.cakes.di.ViewModelModule
-import com.ftresearch.cakes.rest.cake.Cake
-import com.ftresearch.cakes.ui.Resource
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
 import it.cosenonjaviste.daggermock.DaggerMock
+import org.junit.Assert.assertNotNull
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,16 +24,21 @@ class CakesFragmentTest {
         set { it.inject(ApplicationProvider.getApplicationContext()) }
     }
 
-    private val cakesMock = mock<LiveData<Resource<List<Cake>>>>()
+    private val cakesMock = mock<LiveData<CakesViewState>>()
+
     private val viewModelMock = mock<CakesViewModel> {
         on { cakes } doReturn (cakesMock)
     }
 
     @Test
-    fun `should initialise view model when activity is created`() {
-        launchFragmentInContainer<CakesFragment>()
+    fun `should initialise fragment when launched`() {
+        val fragmentScenario = launchFragmentInContainer<CakesFragment>()
 
-        verify(viewModelMock).init()
+        fragmentScenario.onFragment { fragment ->
+            viewModelMock.cakes.observe(any(), any())
+
+            assertNotNull(fragment)
+        }
     }
 
     // TODO: Add more UI tests e.g. refresh and error handling

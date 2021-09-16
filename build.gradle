@@ -38,6 +38,7 @@ ext {
     androidx_arch_core_testing_version = "1.1.1"
     androidx_test_runner_version = "1.4.0"
     androidx_espresso_core_version = "3.4.0"
+    kotlinx_coroutines_test_version = "1.5.1"
 
     dagger_version = "2.38.1"
     dagger_android_version = "2.35.1"

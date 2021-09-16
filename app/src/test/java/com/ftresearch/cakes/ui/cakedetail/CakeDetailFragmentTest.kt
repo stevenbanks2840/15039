@@ -12,7 +12,7 @@ import org.robolectric.RobolectricTestRunner
 class CakeDetailFragmentTest {
 
     @Test
-    fun `should initialise view model when activity is created`() {
+    fun `should initialise fragment when launched`() {
         val fragmentScenario = launchFragmentInContainer<CakeDetailFragment>(
             bundleOf(
                 "title" to TITLE,

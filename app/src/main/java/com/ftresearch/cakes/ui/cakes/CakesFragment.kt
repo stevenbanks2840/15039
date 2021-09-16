@@ -12,9 +12,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ftresearch.cakes.R
 import com.ftresearch.cakes.databinding.FragmentCakesBinding
+import com.ftresearch.cakes.extensions.exhaustive
 import com.ftresearch.cakes.rest.cake.Cake
-import com.ftresearch.cakes.ui.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -49,23 +50,25 @@ class CakesFragment : DaggerFragment() {
             addItemDecoration(dividerItemDecoration)
         }
 
-        viewModel.cakes.observe(viewLifecycleOwner, {
-            when (it.status) {
-                Resource.Status.LOADING -> startProgress()
-                Resource.Status.SUCCESS -> {
-                    stopProgress()
-                    it.data?.let { cakes -> populateCakes(cakes) }
-                }
-                Resource.Status.ERROR -> {
-                    stopProgress()
-                    showError(it.message!!)
-                }
-            }
+        viewModel.cakes.observe(viewLifecycleOwner, { state ->
+            render(state)
         })
 
-        viewModel.init()
-
         return binding.root
+    }
+
+    private fun render(viewState: CakesViewState) {
+        when (viewState) {
+            CakesViewState.Loading -> startProgress()
+            is CakesViewState.Success -> {
+                stopProgress()
+                populateCakes(viewState.cakes)
+            }
+            is CakesViewState.Error -> {
+                stopProgress()
+                showError(viewState.exception)
+            }
+        }.exhaustive
     }
 
     private fun startProgress() {
@@ -94,9 +97,12 @@ class CakesFragment : DaggerFragment() {
         }
     }
 
-    private fun showError(message: String) =
-        Snackbar.make(binding.coordinatorLayout, message, Snackbar.LENGTH_INDEFINITE)
-            .setAction("Retry") {
-                viewModel.refresh()
-            }.show()
+    private fun showError(exception: Exception) =
+        Snackbar.make(
+            binding.coordinatorLayout,
+            exception.message ?: getString(R.string.error_general),
+            Snackbar.LENGTH_SHORT
+        ).setAction(R.string.error_retry) {
+            viewModel.refresh()
+        }.show()
 }

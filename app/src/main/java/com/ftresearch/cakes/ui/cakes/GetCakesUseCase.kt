@@ -10,16 +10,17 @@ class GetCakesUseCase @Inject constructor(private val cakeService: CakeService) 
         return try {
             val cakes = cakeService
                 .getCakes()
-                .distinctBy { it.title }.sortedBy { it.title }
+                .distinctBy { it.title }
+                .sortedBy { it.title }
 
             GetCakesResult.Success(cakes)
         } catch (exception: Exception) {
-            GetCakesResult.Failure(exception)
+            GetCakesResult.Error(exception)
         }
     }
 
     sealed class GetCakesResult {
         data class Success(val cakes: List<Cake>) : GetCakesResult()
-        data class Failure(val exception: Exception) : GetCakesResult()
+        data class Error(val exception: Exception) : GetCakesResult()
     }
 }

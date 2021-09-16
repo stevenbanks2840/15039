@@ -29,8 +29,7 @@ class CakeDetailFragment : DaggerFragment() {
     ): View {
         binding = FragmentCakeDetailBinding.inflate(layoutInflater)
 
-        val transition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = transition
         sharedElementReturnTransition = null
 

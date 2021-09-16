@@ -5,19 +5,23 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
-import com.ftresearch.cakes.TestDispatcherProvider
+import com.ftresearch.MainCoroutineScopeRule
+import com.ftresearch.TestDispatcherProvider
 import com.ftresearch.cakes.rest.cake.Cake
-import com.ftresearch.cakes.ui.Resource
 import com.ftresearch.cakes.ui.cakes.GetCakesUseCase.GetCakesResult
 import com.nhaarman.mockitokotlin2.*
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
-import org.junit.Before
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import java.io.IOException
 
+@ExperimentalCoroutinesApi
 class CakesViewModelTest {
+
+    @get:Rule
+    val coroutineScopeRule = MainCoroutineScopeRule()
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -34,54 +38,41 @@ class CakesViewModelTest {
 
     private val getCakesUseCaseMock = mock<GetCakesUseCase>()
     private val getCakeSuccessMock = GetCakesResult.Success(cakesMock)
-    private val getCakeFailureMock = GetCakesResult.Failure(getCakesException)
+    private val getCakeFailureMock = GetCakesResult.Error(getCakesException)
 
-    private val cakesObserver = mock<Observer<Resource<List<Cake>>>>()
-    private val cakesArgumentCaptor = argumentCaptor<Resource<List<Cake>>>()
+    private val cakesObserver = mock<Observer<CakesViewState>>()
+    private val cakesArgumentCaptor = argumentCaptor<CakesViewState>()
 
     private lateinit var sut: CakesViewModel
 
-    @Before
-    fun setUp() {
-        sut = CakesViewModel(getCakesUseCaseMock, TestDispatcherProvider())
-    }
-
     @Test
-    fun `should return cakes when getCakes is successful`() = runBlocking {
+    fun `should return cakes when getCakes is successful`() = coroutineScopeRule.runBlockingTest {
         whenever(getCakesUseCaseMock.getCakes()).thenReturn(getCakeSuccessMock)
 
-        sut.cakes.observe(lifecycleOwner, cakesObserver)
-        sut.init()
+        createSut()
 
         verify(cakesObserver, times(2)).onChanged(cakesArgumentCaptor.capture())
 
         // Loading
-        val loadingResource = cakesArgumentCaptor.firstValue
-        assertEquals(Resource.Status.LOADING, loadingResource.status)
+        assertTrue(cakesArgumentCaptor.firstValue is CakesViewState.Loading)
 
         // Success
-        val successResource = cakesArgumentCaptor.secondValue
-        assertEquals(Resource.Status.SUCCESS, successResource.status)
-        assertEquals(cakesMock, successResource.data)
+        assertTrue(cakesArgumentCaptor.secondValue is CakesViewState.Success)
     }
 
     @Test
-    fun `should return error when getCakes fails`() = runBlocking {
+    fun `should return error when getCakes fails`() = coroutineScopeRule.runBlockingTest {
         whenever(getCakesUseCaseMock.getCakes()).thenReturn(getCakeFailureMock)
 
-        sut.cakes.observe(lifecycleOwner, cakesObserver)
-        sut.init()
+        createSut()
 
         verify(cakesObserver, times(2)).onChanged(cakesArgumentCaptor.capture())
 
         // Loading
-        val loadingResource = cakesArgumentCaptor.firstValue
-        assertEquals(Resource.Status.LOADING, loadingResource.status)
+        assertTrue(cakesArgumentCaptor.firstValue is CakesViewState.Loading)
 
         // Error
-        val errorResource = cakesArgumentCaptor.secondValue
-        assertEquals(Resource.Status.ERROR, errorResource.status)
-        assertEquals(getCakesException.message, errorResource.message)
+        assertTrue(cakesArgumentCaptor.secondValue is CakesViewState.Error)
     }
 
     private val lifecycleOwner by lazy {
@@ -90,5 +81,18 @@ class CakesViewModelTest {
             whenever(it.lifecycle).doReturn(lifecycle)
             lifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
         }
+    }
+
+    private fun createSut() {
+        coroutineScopeRule.pauseDispatcher()
+
+        sut = CakesViewModel(
+            getCakesUseCaseMock,
+            TestDispatcherProvider(coroutineScopeRule.dispatcher)
+        )
+
+        sut.cakes.observe(lifecycleOwner, cakesObserver)
+
+        coroutineScopeRule.resumeDispatcher()
     }
 }

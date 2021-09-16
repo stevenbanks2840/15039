@@ -79,7 +79,7 @@ class GetCakesUseCaseTest {
 
         whenever(cakeServiceMock.getCakes()).thenThrow(exception)
 
-        val result = sut.getCakes() as GetCakesResult.Failure
+        val result = sut.getCakes() as GetCakesResult.Error
 
         assertEquals(exception, result.exception)
     }
