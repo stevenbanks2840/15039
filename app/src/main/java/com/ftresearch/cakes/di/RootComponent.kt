@@ -2,8 +2,8 @@ package com.ftresearch.cakes.di
 
 import com.ftresearch.cakes.CakesApplication
 import com.ftresearch.cakes.di.viewmodelfactory.ViewModelFactoryModule
-import com.ftresearch.cakes.ui.cakedetail.CakeDetailActivity
-import com.ftresearch.cakes.ui.cakes.CakesActivity
+import com.ftresearch.cakes.ui.cakedetail.CakeDetailFragment
+import com.ftresearch.cakes.ui.cakes.CakesFragment
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -24,8 +24,8 @@ import javax.inject.Singleton
 interface RootComponent : AndroidInjector<DaggerApplication> {
 
     fun inject(application: CakesApplication)
-    fun inject(activity: CakesActivity)
-    fun inject(activity: CakeDetailActivity)
+    fun inject(fragment: CakesFragment)
+    fun inject(fragment: CakeDetailFragment)
 
     @Component.Builder
     interface Builder {

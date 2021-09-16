@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 30
@@ -25,6 +26,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
     }
 
     flavorDimensions "version"
@@ -56,6 +60,8 @@ dependencies {
     implementation "com.google.android.material:material:$androidx_material_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_extensions_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_viewmodel_ktx"
+    implementation "androidx.navigation:navigation-fragment-ktx:$androidx_navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$androidx_navigation"
 
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.robolectric:robolectric:$robolectric_version"
@@ -66,6 +72,7 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-android:$mockito_version"
     testImplementation "com.github.fabioCollini.daggermock:daggermock:$dagger_mock_version"
     testImplementation "com.github.fabioCollini.daggermock:daggermock-kotlin:$dagger_mock_version"
+    debugImplementation("androidx.fragment:fragment-testing:$androidx_fragment_testing")
 
     androidTestImplementation "androidx.test:runner:$androidx_test_runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_espresso_core_version"
