@@ -98,7 +98,7 @@ project.afterEvaluate {
                     def variantSourceSets = variant.sourceSets.java.srcDirs.collect { it.path }.flatten()
                     sourceDirectories.setFrom(project.files(variantSourceSets))
 
-                    def coverageUnitTestTask = "${variantName.capitalize()}UnitTest"
+                    def coverageUnitTestTask = "${variantName}UnitTest"
                     def unitTestsData = "$project.buildDir/outputs/unit_test_code_coverage/${coverageUnitTestTask}/${unitTestTask}.exec"
                     def androidTestsData = fileTree(dir: "${buildDir}/outputs/code_coverage/${variantName}AndroidTest/connected/", includes: ["**/*.ec"])
 
