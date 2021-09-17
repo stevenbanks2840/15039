@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'androidx.navigation.safeargs'
 apply from: "../jacoco.gradle"
+apply from: "../sonar.gradle"
 
 android {
     compileSdkVersion 30

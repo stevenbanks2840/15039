@@ -1,0 +1,21 @@
+apply plugin: 'org.sonarqube'
+
+sonarqube {
+    properties {
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.projectName", "15039"
+        property "sonar.projectKey", "stevenbanks2840_15039"
+        property "sonar.organization", "stevenbanks2840"
+        property "sonar.projectVersion", "${android.defaultConfig.versionName}"
+
+        property "sonar.junit.reportsPath", "build/test-results/testDevelopmentDebugUnitTest"
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.androidLint.reportPaths", "build/reports/lint-results-developmentDebug.xml"
+        property "sonar.jacoco.reportPaths", fileTree(dir: project.projectDir, includes: ["**/*.exec"])
+        property "sonar.jacoco.itReportPath", fileTree(dir: project.projectDir, includes: ["**/*.ec"])
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/testDevelopmentDebugUnitTestCoverage/testDevelopmentDebugUnitTestCoverage.xml"
+    }
+}
+
+tasks.sonarqube.dependsOn ":app:testDevelopmentDebugUnitTestCoverage"
