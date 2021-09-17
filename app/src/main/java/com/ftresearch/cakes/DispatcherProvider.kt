@@ -13,3 +13,8 @@ class CakesDispatcherProvider @Inject constructor() : DispatcherProvider {
 
     override val io: CoroutineContext = Dispatchers.IO
 }
+
+class UnusedDispatcherProvider @Inject constructor() : DispatcherProvider {
+
+    override val io: CoroutineContext = Dispatchers.IO
+}
