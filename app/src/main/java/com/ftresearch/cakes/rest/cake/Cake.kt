@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class Cake(
     val title: String,
     val desc: String,
+    val detail: String,
     val image: String?
 ) : Parcelable

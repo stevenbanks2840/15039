@@ -4,6 +4,6 @@ import retrofit2.http.GET
 
 interface CakeService {
 
-    @GET("/t-reed/739df99e9d96700f17604a3971e701fa/raw/1d4dd9c5a0ec758ff5ae92b7b13fe4d57d34e1dc/waracle_cake-android-client")
+    @GET("/stevenbanks2840/de609c37581216267170e6bb81e753d3/raw/99471d5c73ff631f0aa98f0b9d4b2ede91881d36/cakes")
     suspend fun getCakes(): List<Cake>
 }

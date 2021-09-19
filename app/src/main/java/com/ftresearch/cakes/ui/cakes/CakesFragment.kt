@@ -5,16 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.doOnPreDraw
+import androidx.core.view.isInvisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ftresearch.cakes.R
 import com.ftresearch.cakes.databinding.FragmentCakesBinding
 import com.ftresearch.cakes.extensions.exhaustive
+import com.ftresearch.cakes.extensions.setupActionBar
 import com.ftresearch.cakes.rest.cake.Cake
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
@@ -42,19 +44,28 @@ class CakesFragment : DaggerFragment() {
 
         binding.swipeRefreshLayout.setOnRefreshListener { viewModel.refresh() }
 
-        val dividerItemDecoration = DividerItemDecoration(context, RecyclerView.VERTICAL)
-
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = cakeAdapter
-            addItemDecoration(dividerItemDecoration)
         }
 
         viewModel.cakes.observe(viewLifecycleOwner, { state ->
             render(state)
         })
 
+        postponeEnterTransition()
+        binding.root.doOnPreDraw {
+
+            startPostponedEnterTransition()
+        }
+
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        setupActionBar(binding.toolbar)
     }
 
     private fun render(viewState: CakesViewState) {
@@ -89,11 +100,11 @@ class CakesFragment : DaggerFragment() {
             val extrasBuilder = FragmentNavigator.Extras.Builder()
             extrasBuilder.addSharedElement(sharedImageView, transitionName)
             val extras = extrasBuilder.build()
-
             findNavController().navigate(
-                CakesFragmentDirections.actionCakesToCakeDetail(cake.title, cake),
-                extras
+                CakesFragmentDirections.actionCakesToCakeDetail(cake.title, cake), extras
             )
+
+            binding.toolbar.isInvisible = true
         }
     }
 
