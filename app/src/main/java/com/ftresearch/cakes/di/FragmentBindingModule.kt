@@ -6,11 +6,11 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class ActivityBindingModule {
+abstract class FragmentBindingModule {
 
     @ContributesAndroidInjector
-    abstract fun cakesActivity(): CakesFragment
+    abstract fun cakesFragment(): CakesFragment
 
     @ContributesAndroidInjector
-    abstract fun cakeDetailActivity(): CakeDetailFragment
+    abstract fun cakeDetailFragment(): CakeDetailFragment
 }
