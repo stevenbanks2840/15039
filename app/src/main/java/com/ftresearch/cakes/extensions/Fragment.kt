@@ -9,9 +9,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.ftresearch.cakes.R
 
 fun Fragment.setupActionBar(toolbar: Toolbar) {
-    (activity as AppCompatActivity).run {
-        toolbar.isVisible = true
+    toolbar.isVisible = true
 
+    (activity as? AppCompatActivity)?.run {
         setSupportActionBar(toolbar)
 
         val navHostFragment =

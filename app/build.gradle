@@ -67,21 +67,26 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_viewmodel_ktx"
     implementation "androidx.navigation:navigation-fragment-ktx:$androidx_navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$androidx_navigation"
+    implementation 'androidx.test.ext:junit-ktx:1.1.3'
 
-    testImplementation "junit:junit:$junit_version"
     testImplementation "org.robolectric:robolectric:$robolectric_version"
     testImplementation "androidx.test:core:$androidx_test_core_version"
     testImplementation "android.arch.core:core-testing:$androidx_arch_core_testing_version"
+    testImplementation "androidx.test.ext:junit:$androidx_junit_runner_version"
+    testImplementation "androidx.test.ext:junit-ktx:$androidx_junit_ktx_version"
+    testImplementation "androidx.test.espresso:espresso-core:$androidx_espresso_core_version"
+    testImplementation "androidx.test.espresso:espresso-contrib:$androidx_espresso_core_version"
+    testImplementation "androidx.test.espresso:espresso-intents:$androidx_espresso_core_version"
+    testImplementation "androidx.test.espresso:espresso-accessibility:$androidx_espresso_core_version"
+    testImplementation "androidx.test.espresso:espresso-web:$androidx_espresso_core_version"
+    testImplementation "androidx.test.espresso.idling:idling-concurrent:$androidx_espresso_core_version"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitokotlin2_version"
     testImplementation "org.mockito:mockito-core:$mockito_version"
-    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
+    testImplementation "org.mockito:mockito-android:$mockito_version"
     testImplementation "com.github.fabioCollini.daggermock:daggermock:$dagger_mock_version"
     testImplementation "com.github.fabioCollini.daggermock:daggermock-kotlin:$dagger_mock_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_test_version"
     debugImplementation("androidx.fragment:fragment-testing:$androidx_fragment_testing")
-
-    androidTestImplementation "androidx.test:runner:$androidx_test_runner_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_espresso_core_version"
 
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
