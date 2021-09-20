@@ -6,11 +6,10 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
 import com.ftresearch.cakes.R
 import com.ftresearch.cakes.databinding.ListItemCakeBinding
 import com.ftresearch.cakes.rest.cake.Cake
-
 
 class CakeAdapter(private val onClick: (Cake, ImageView) -> Unit) :
     ListAdapter<Cake, CakeAdapter.ViewHolder>(CakeDiffCallback) {
@@ -32,11 +31,10 @@ class CakeAdapter(private val onClick: (Cake, ImageView) -> Unit) :
             cakeTitle.text = cake.title
             cakeImage.transitionName = cake.title
             cakeDescription.text = cake.desc
-
-            Glide.with(root.context)
-                .load(cake.image)
-                .placeholder(R.drawable.placeholder_image)
-                .into(cakeImage)
+            cakeImage.load(cake.image) {
+                crossfade(300)
+                placeholder(R.drawable.placeholder_image)
+            }
 
             root.setOnClickListener { onClick(cake, cakeImage) }
         }

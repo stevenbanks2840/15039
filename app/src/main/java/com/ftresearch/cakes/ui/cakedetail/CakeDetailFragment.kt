@@ -1,17 +1,13 @@
 package com.ftresearch.cakes.ui.cakedetail
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
+import coil.imageLoader
+import coil.request.ImageRequest
 import com.ftresearch.cakes.R
 import com.ftresearch.cakes.databinding.FragmentCakeDetailBinding
 import com.ftresearch.cakes.extensions.setupActionBar
@@ -56,30 +52,21 @@ class CakeDetailFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Glide.with(this) // TODO: Reduce hardcoded reference to 3rd party library by injecting a wrapper
-            .load(args.cake.image)
+        val request = ImageRequest.Builder(requireContext())
+            .data(args.cake.image)
             .placeholder(R.drawable.placeholder_image)
-            .listener(object : RequestListener<Drawable> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?, target: Target<Drawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    startPostponedEnterTransition()
-                    return true
-                }
+            .target(
+                onSuccess = { result ->
+                    binding.cakeDetailImage.setImageDrawable(result)
 
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
                     startPostponedEnterTransition()
-                    return false
+                },
+                onError = {
+                    startPostponedEnterTransition()
                 }
-            })
-            .into(binding.cakeDetailImage)
+            )
+            .build()
+
+        requireContext().imageLoader.enqueue(request)
     }
 }

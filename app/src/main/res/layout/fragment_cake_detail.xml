@@ -29,7 +29,7 @@
                 android:adjustViewBounds="true"
                 android:background="@color/image_background"
                 android:importantForAccessibility="no"
-                android:scaleType="center"
+                android:scaleType="centerCrop"
                 android:src="@drawable/placeholder_image"
                 app:layout_collapseMode="parallax" />
 
@@ -54,7 +54,7 @@
             android:id="@+id/cakeDetailContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="16dp"
             android:orientation="vertical">
 
             <TextView
