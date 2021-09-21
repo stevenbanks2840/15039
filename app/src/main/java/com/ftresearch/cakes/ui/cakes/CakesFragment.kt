@@ -14,6 +14,7 @@ import com.ftresearch.cakes.databinding.FragmentCakesBinding
 import com.ftresearch.cakes.extensions.exhaustive
 import com.ftresearch.cakes.extensions.setupActionBarNavigation
 import com.ftresearch.cakes.repository.Cake
+import com.ftresearch.cakes.sync.CakeSyncState
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -50,7 +51,7 @@ class CakesFragment : DaggerFragment() {
             adapter.submitList(state)
         })
 
-        viewModel.viewState.observe(viewLifecycleOwner, { state ->
+        viewModel.cakeSyncState.observe(viewLifecycleOwner, { state ->
             render(state)
         })
 
@@ -85,15 +86,17 @@ class CakesFragment : DaggerFragment() {
         }
     }
 
-    private fun render(viewState: CakesViewState) {
-        when (viewState) {
-            CakesViewState.Loading -> startProgress()
-            is CakesViewState.PrePopulated -> {
+    private fun render(state: CakeSyncState) {
+        when (state) {
+            CakeSyncState.InProgress -> {
+                startProgress()
+            }
+            is CakeSyncState.Complete -> {
                 stopProgress()
             }
-            is CakesViewState.Error -> {
+            is CakeSyncState.Error -> {
                 stopProgress()
-                showError(viewState.exception)
+                showError(state.exception)
             }
         }.exhaustive
     }

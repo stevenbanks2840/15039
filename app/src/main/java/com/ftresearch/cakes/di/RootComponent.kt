@@ -7,7 +7,6 @@ import com.ftresearch.cakes.ui.cakes.CakesFragment
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
@@ -22,9 +21,8 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class]
 )
 @Singleton
-interface RootComponent : AndroidInjector<DaggerApplication> {
+interface RootComponent : AndroidInjector<CakesApplication> {
 
-    fun inject(application: CakesApplication)
     fun inject(fragment: CakesFragment)
     fun inject(fragment: CakeDetailFragment)
 

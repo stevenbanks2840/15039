@@ -69,4 +69,6 @@ ext {
     retrofit_converter_gson_version = "2.9.0"
 
     room_version = "2.3.0"
+
+    work_version = "2.6.0"
 }

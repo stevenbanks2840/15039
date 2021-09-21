@@ -5,4 +5,10 @@
 
     <string name="error_retry">Retry</string>
     <string name="error_general">An error has occurred. Please try again.</string>
+
+    <string name="sync_work_title">Synchronising Cakes</string>
+    <string name="sync_work_notification_text">Downloading Cakes</string>
+    <string name="sync_work_channel_name">Cakes Channel</string>
+    <string name="sync_work_channel_description">Cakes Channel Description</string>
+    <string name="sync_work_cancel">Cancel</string>
 </resources>
