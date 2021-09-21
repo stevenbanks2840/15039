@@ -1,27 +1,25 @@
-package com.ftresearch.cakes.ui.cakes
+package com.ftresearch.cakes.ui.cakesearch
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.ftresearch.cakes.R
-import com.ftresearch.cakes.databinding.ListItemCakeBinding
+import com.ftresearch.cakes.databinding.ListItemCakeSearchBinding
 import com.ftresearch.cakes.repository.Cake
 
-class CakeAdapter(private val onClick: (Cake, ImageView) -> Unit) :
-    ListAdapter<Cake, CakeAdapter.ViewHolder>(CakeDiffCallback) {
+class CakeSearchAdapter(private val onClick: (Cake) -> Unit) :
+    ListAdapter<Cake, CakeSearchAdapter.ViewHolder>(CakeDiffCallback) {
 
-    inner class ViewHolder(val binding: ListItemCakeBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ListItemCakeSearchBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(container: ViewGroup, position: Int): ViewHolder {
         val rootView = LayoutInflater
             .from(container.context)
-            .inflate(R.layout.list_item_cake, container, false)
+            .inflate(R.layout.list_item_cake_search, container, false)
 
-        return ViewHolder(ListItemCakeBinding.bind(rootView))
+        return ViewHolder(ListItemCakeSearchBinding.bind(rootView))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -29,14 +27,9 @@ class CakeAdapter(private val onClick: (Cake, ImageView) -> Unit) :
 
         holder.binding.apply {
             cakeTitle.text = cake.title
-            cakeImage.transitionName = cake.title
             cakeDescription.text = cake.desc
-            cakeImage.load(cake.image) {
-                crossfade(300)
-                placeholder(R.drawable.placeholder_image)
-            }
 
-            root.setOnClickListener { onClick(cake, cakeImage) }
+            root.setOnClickListener { onClick(cake) }
         }
     }
 }

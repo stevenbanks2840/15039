@@ -7,8 +7,9 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
 import com.ftresearch.MainCoroutineScopeRule
 import com.ftresearch.TestDispatcherProvider
-import com.ftresearch.cakes.rest.cake.Cake
-import com.ftresearch.cakes.ui.cakes.GetCakesUseCase.GetCakesResult
+import com.ftresearch.cakes.rest.cake.CakeDTO
+import com.ftresearch.cakes.usecase.GetCakesUseCase
+import com.ftresearch.cakes.usecase.GetCakesUseCase.GetCakesResult
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -26,10 +27,10 @@ class CakesViewModelTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    private val cake1Mock = mock<Cake> {
+    private val cake1Mock = mock<CakeDTO> {
         on { title } doReturn ("Cheese cake")
     }
-    private val cake2Mock = mock<Cake> {
+    private val cake2Mock = mock<CakeDTO> {
         on { title } doReturn ("Banana cake")
     }
 

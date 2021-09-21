@@ -13,6 +13,14 @@ fun Fragment.setupActionBar(toolbar: Toolbar) {
 
     (activity as? AppCompatActivity)?.run {
         setSupportActionBar(toolbar)
+    }
+}
+
+fun Fragment.setupActionBarNavigation(toolbar: Toolbar) {
+    toolbar.isVisible = true
+
+    (activity as? AppCompatActivity)?.run {
+        setSupportActionBar(toolbar)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment

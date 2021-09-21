@@ -1,23 +1,26 @@
 package com.ftresearch.cakes.ui.cakes
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.ftresearch.cakes.DispatcherProvider
+import com.ftresearch.cakes.repository.Cake
 import com.ftresearch.cakes.ui.cakes.CakesViewState.Loading
-import com.ftresearch.cakes.ui.cakes.GetCakesUseCase.GetCakesResult
+import com.ftresearch.cakes.usecase.GetCakesUseCase
+import com.ftresearch.cakes.usecase.PrePopulateUseCase
+import com.ftresearch.cakes.usecase.PrePopulateUseCase.PrePopulateResult
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CakesViewModel @Inject constructor(
     private val getCakesUseCase: GetCakesUseCase,
+    private val prePopulateUseCase: PrePopulateUseCase,
     private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
 
-    val cakes: LiveData<CakesViewState> get() = cakesResource
+    val cakes: LiveData<List<Cake>> get() = getCakesUseCase.getCakes().asLiveData()
 
-    private val cakesResource = MutableLiveData<CakesViewState>()
+    val viewState: LiveData<CakesViewState> get() = _viewState
+
+    private val _viewState = MutableLiveData<CakesViewState>()
 
     init {
         loadCakes()
@@ -29,14 +32,13 @@ class CakesViewModel @Inject constructor(
         updateState(Loading)
 
         viewModelScope.launch(dispatcherProvider.io) {
-            val newState = when (val result = getCakesUseCase.getCakes()) {
-                is GetCakesResult.Success -> CakesViewState.Success(result.cakes)
-                is GetCakesResult.Error -> CakesViewState.Error(result.exception)
+            val viewState = when (val result = prePopulateUseCase.prepopulateCakes()) {
+                is PrePopulateResult.Success -> CakesViewState.PrePopulated
+                is PrePopulateResult.Error -> CakesViewState.Error(result.exception)
             }
-
-            updateState(newState)
+            updateState(viewState)
         }
     }
 
-    private fun updateState(state: CakesViewState) = cakesResource.postValue(state)
+    private fun updateState(state: CakesViewState) = _viewState.postValue(state)
 }

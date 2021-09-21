@@ -10,7 +10,7 @@ import coil.imageLoader
 import coil.request.ImageRequest
 import com.ftresearch.cakes.R
 import com.ftresearch.cakes.databinding.FragmentCakeDetailBinding
-import com.ftresearch.cakes.extensions.setupActionBar
+import com.ftresearch.cakes.extensions.setupActionBarNavigation
 import dagger.android.support.DaggerFragment
 
 class CakeDetailFragment : DaggerFragment() {
@@ -22,11 +22,13 @@ class CakeDetailFragment : DaggerFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val transition = TransitionInflater.from(context).inflateTransition(R.transition.cake_transition)
-        sharedElementEnterTransition = transition
-        sharedElementReturnTransition = transition
+        if (args.showTransition) {
+            val transition = TransitionInflater.from(context).inflateTransition(R.transition.cake_transition)
+            sharedElementEnterTransition = transition
+            sharedElementReturnTransition = transition
 
-        postponeEnterTransition()
+            postponeEnterTransition()
+        }
     }
 
     override fun onCreateView(
@@ -35,7 +37,6 @@ class CakeDetailFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCakeDetailBinding.inflate(layoutInflater)
-
         binding.cakeDetailDescription.text = args.cake.desc
         binding.cakeDetailImage.transitionName = args.cake.title
         binding.cakeDetailDetail.text = args.cake.detail
@@ -46,7 +47,7 @@ class CakeDetailFragment : DaggerFragment() {
     override fun onStart() {
         super.onStart()
 
-        setupActionBar(binding.toolbar)
+        setupActionBarNavigation(binding.toolbar)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,6 +1,6 @@
 package com.ftresearch.cakes.ui
 
-import com.ftresearch.cakes.rest.cake.Cake
+import com.ftresearch.cakes.rest.cake.CakeDTO
 
 object TestData {
 
@@ -15,7 +15,7 @@ object TestData {
 
     val cakes = listOf(TestData.cake1, TestData.cake2, TestData.cake3)
 
-    private fun createCake(index: Int) = Cake(
+    private fun createCake(index: Int) = CakeDTO(
         title = TITLE + index,
         desc = DESCRIPTION + index,
         detail = DETAIL + index,

@@ -1,8 +1,9 @@
 package com.ftresearch.cakes.ui.cakes
 
-import com.ftresearch.cakes.rest.cake.Cake
+import com.ftresearch.cakes.rest.cake.CakeDTO
 import com.ftresearch.cakes.rest.cake.CakeService
-import com.ftresearch.cakes.ui.cakes.GetCakesUseCase.GetCakesResult
+import com.ftresearch.cakes.usecase.GetCakesUseCase
+import com.ftresearch.cakes.usecase.GetCakesUseCase.GetCakesResult
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
@@ -14,16 +15,16 @@ import org.junit.Test
 
 class GetCakesUseCaseTest {
 
-    private val cake1Mock = mock<Cake> {
+    private val cake1Mock = mock<CakeDTO> {
         on { title } doReturn ("Cheese cake")
     }
-    private val cake2Mock = mock<Cake> {
+    private val cake2Mock = mock<CakeDTO> {
         on { title } doReturn ("Banana cake")
     }
-    private val cake3Mock = mock<Cake> {
+    private val cake3Mock = mock<CakeDTO> {
         on { title } doReturn ("Cheese cake")
     }
-    private val cake4Mock = mock<Cake> {
+    private val cake4Mock = mock<CakeDTO> {
         on { title } doReturn ("Apple cake")
     }
 

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Cakes</string>
 
+    <string name="action_search">Search</string>
+
     <string name="error_retry">Retry</string>
     <string name="error_general">An error has occurred. Please try again.</string>
 </resources>
