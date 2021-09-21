@@ -13,8 +13,8 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.ftresearch.cakes.R
 import com.ftresearch.cakes.extensions.toCake
-import com.ftresearch.cakes.repository.CakeRepository
-import com.ftresearch.cakes.rest.cake.CakeService
+import com.ftresearch.cakes.domain.repository.CakeRepository
+import com.ftresearch.cakes.network.service.CakeService
 import javax.inject.Inject
 
 class CakeSyncWorker @Inject constructor(

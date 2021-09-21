@@ -12,7 +12,10 @@ import javax.inject.Singleton
 @Singleton
 class CakeSyncRepository @Inject constructor(private val application: CakesApplication) {
 
-    private val _syncState = MutableSharedFlow<CakeSyncState>(replay = 1, extraBufferCapacity = 1)
+    private val _syncState = MutableSharedFlow<CakeSyncState>(
+        replay = 1,
+        extraBufferCapacity = 1
+    )
 
     val syncState: SharedFlow<CakeSyncState> = _syncState
 
@@ -21,7 +24,8 @@ class CakeSyncRepository @Inject constructor(private val application: CakesAppli
     }
 
     fun startSync() {
-        val request: WorkRequest = OneTimeWorkRequestBuilder<CakeSyncWorker>().build()
+        val request: WorkRequest = OneTimeWorkRequestBuilder<CakeSyncWorker>()
+            .build()
 
         WorkManager
             .getInstance(application)

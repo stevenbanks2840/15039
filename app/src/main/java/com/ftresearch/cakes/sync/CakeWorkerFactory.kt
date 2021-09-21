@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import com.ftresearch.cakes.repository.CakeRepository
-import com.ftresearch.cakes.rest.cake.CakeService
+import com.ftresearch.cakes.domain.repository.CakeRepository
+import com.ftresearch.cakes.network.service.CakeService
 import javax.inject.Inject
 
 class CakeWorkerFactory @Inject constructor(

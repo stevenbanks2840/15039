@@ -1,8 +1,8 @@
 package com.ftresearch.cakes.di
 
-import com.ftresearch.cakes.ui.cakedetail.CakeDetailFragment
-import com.ftresearch.cakes.ui.cakes.CakesFragment
-import com.ftresearch.cakes.ui.cakesearch.CakeSearchFragment
+import com.ftresearch.cakes.presentation.cakedetail.CakeDetailFragment
+import com.ftresearch.cakes.presentation.cakes.CakesFragment
+import com.ftresearch.cakes.presentation.cakesearch.CakeSearchFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

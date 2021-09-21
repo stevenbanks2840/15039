@@ -2,8 +2,8 @@ package com.ftresearch.cakes.di
 
 import com.ftresearch.cakes.CakesApplication
 import com.ftresearch.cakes.di.viewmodelfactory.ViewModelFactoryModule
-import com.ftresearch.cakes.ui.cakedetail.CakeDetailFragment
-import com.ftresearch.cakes.ui.cakes.CakesFragment
+import com.ftresearch.cakes.presentation.cakedetail.CakeDetailFragment
+import com.ftresearch.cakes.presentation.cakes.CakesFragment
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector

@@ -1,7 +1,7 @@
 package com.ftresearch.cakes.di
 
 import com.ftresearch.cakes.BuildConfig
-import com.ftresearch.cakes.rest.cake.CakeService
+import com.ftresearch.cakes.network.service.CakeService
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module

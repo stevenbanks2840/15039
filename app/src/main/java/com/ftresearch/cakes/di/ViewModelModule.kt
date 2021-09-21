@@ -3,11 +3,12 @@ package com.ftresearch.cakes.di
 import androidx.lifecycle.ViewModel
 import com.ftresearch.cakes.DispatcherProvider
 import com.ftresearch.cakes.di.viewmodelfactory.ViewModelKey
-import com.ftresearch.cakes.sync.CakeSyncRepository
-import com.ftresearch.cakes.ui.cakes.CakesViewModel
-import com.ftresearch.cakes.ui.cakesearch.CakesSearchViewModel
-import com.ftresearch.cakes.usecase.GetCakesUseCase
-import com.ftresearch.cakes.usecase.SearchCakesUseCase
+import com.ftresearch.cakes.domain.usecase.GetCakeSyncStateUseCase
+import com.ftresearch.cakes.domain.usecase.GetCakesUseCase
+import com.ftresearch.cakes.domain.usecase.SearchCakesUseCase
+import com.ftresearch.cakes.domain.usecase.StartCakeSyncUseCase
+import com.ftresearch.cakes.presentation.cakes.CakesViewModel
+import com.ftresearch.cakes.presentation.cakesearch.CakesSearchViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -18,8 +19,9 @@ class ViewModelModule {
     @Provides
     fun providesCakesViewModel(
         getCakesUseCase: GetCakesUseCase,
-        cakeSyncRepository: CakeSyncRepository
-    ) = CakesViewModel(getCakesUseCase, cakeSyncRepository) // DaggerMock only support @Provides
+        getCakeSyncStateUseCase: GetCakeSyncStateUseCase,
+        startCakeSyncUseCase: StartCakeSyncUseCase,
+    ) = CakesViewModel(getCakesUseCase, getCakeSyncStateUseCase, startCakeSyncUseCase) // DaggerMock only support @Provides
 
     @Provides
     fun providesCakesSearchViewModel(

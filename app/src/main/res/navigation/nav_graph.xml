@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/CakesFragment"
-        android:name="com.ftresearch.cakes.ui.cakes.CakesFragment"
+        android:name="com.ftresearch.cakes.presentation.cakes.CakesFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_cakes">
 
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/CakeDetailFragment"
-        android:name="com.ftresearch.cakes.ui.cakedetail.CakeDetailFragment"
+        android:name="com.ftresearch.cakes.presentation.cakedetail.CakeDetailFragment"
         android:label="{title}"
         tools:layout="@layout/fragment_cake_detail">
 
@@ -36,12 +36,12 @@
 
         <argument
             android:name="cake"
-            app:argType="com.ftresearch.cakes.repository.Cake" />
+            app:argType="com.ftresearch.cakes.domain.model.Cake" />
     </fragment>
 
     <fragment
         android:id="@+id/CakeSearchFragment"
-        android:name="com.ftresearch.cakes.ui.cakesearch.CakeSearchFragment"
+        android:name="com.ftresearch.cakes.presentation.cakesearch.CakeSearchFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_cake_search">
 

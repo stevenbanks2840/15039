@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".presentation.MainActivity"
             android:screenOrientation="sensor"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
