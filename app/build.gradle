@@ -70,6 +70,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$androidx_navigation"
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
+    implementation 'androidx.work:work-testing:2.6.0'
     annotationProcessor "androidx.room:room-compiler:$room_version"
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.work:work-runtime-ktx:$work_version")
@@ -92,6 +93,7 @@ dependencies {
     testImplementation "com.github.fabioCollini.daggermock:daggermock:$dagger_mock_version"
     testImplementation "com.github.fabioCollini.daggermock:daggermock-kotlin:$dagger_mock_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_test_version"
+    testImplementation "androidx.work:work-testing:$work_version"
     debugImplementation("androidx.fragment:fragment-testing:$androidx_fragment_testing")
 
     implementation "com.google.dagger:dagger:$dagger_version"
