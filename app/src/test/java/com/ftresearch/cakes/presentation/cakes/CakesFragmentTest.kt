@@ -46,7 +46,7 @@ class CakesFragmentTest {
 
     @Test
     fun `should initialise fragment when launched`() {
-        val fragmentScenario = launchFragmentInContainer<CakesFragment>(themeResId = R.style.AppTheme)
+        val fragmentScenario = launchFragmentInContainer<CakesFragment>()
 
         fragmentScenario.onFragment {
             onView(
@@ -59,7 +59,7 @@ class CakesFragmentTest {
 
     @Test
     fun `should display progress when cakes are being synced`() {
-        val fragmentScenario = launchFragmentInContainer<CakesFragment>(themeResId = R.style.AppTheme)
+        val fragmentScenario = launchFragmentInContainer<CakesFragment>()
 
         fragmentScenario.onFragment {
             waitForContentLoadingProgressBar()
@@ -86,7 +86,7 @@ class CakesFragmentTest {
     fun `should hide progress when cakes have synced successfully`() {
         cakeSyncStateLiveData.postValue(CakeSyncState.InProgress)
 
-        val fragmentScenario = launchFragmentInContainer<CakesFragment>(themeResId = R.style.AppTheme)
+        val fragmentScenario = launchFragmentInContainer<CakesFragment>()
 
         fragmentScenario.onFragment {
             waitForContentLoadingProgressBar()
@@ -113,7 +113,7 @@ class CakesFragmentTest {
     fun `should hide progress when cakes have failed to sync`() {
         cakeSyncStateLiveData.postValue(CakeSyncState.InProgress)
 
-        val fragmentScenario = launchFragmentInContainer<CakesFragment>(themeResId = R.style.AppTheme)
+        val fragmentScenario = launchFragmentInContainer<CakesFragment>()
 
         fragmentScenario.onFragment {
             waitForContentLoadingProgressBar()

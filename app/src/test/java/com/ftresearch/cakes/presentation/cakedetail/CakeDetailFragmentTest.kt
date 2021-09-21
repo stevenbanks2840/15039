@@ -17,7 +17,6 @@ class CakeDetailFragmentTest {
     @Test
     fun `should initialise fragment when launched`() {
         val fragmentScenario = launchFragmentInContainer<CakeDetailFragment>(
-            themeResId = R.style.AppTheme,
             fragmentArgs = CakeDetailFragmentArgs.Builder(CAKE.title, false, CAKE)
                 .build()
                 .toBundle()

@@ -10,7 +10,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import javax.inject.Inject
 
-class CakesApplication : DaggerApplication(), Configuration.Provider {
+open class CakesApplication : DaggerApplication(), Configuration.Provider {
 
     @Inject
     lateinit var cakeSyncRepository: CakeSyncRepository

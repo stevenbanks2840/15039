@@ -40,7 +40,7 @@ class CakeSearchFragmentTest {
 
     @Test
     fun `should initialise fragment when launched`() {
-        val fragmentScenario = launchFragmentInContainer<CakeSearchFragment>(themeResId = R.style.AppTheme)
+        val fragmentScenario = launchFragmentInContainer<CakeSearchFragment>()
 
         fragmentScenario.onFragment {
             onView(
