@@ -20,7 +20,7 @@ import org.junit.runner.RunWith
 class MainActivityTest {
 
     @get:Rule
-    val rule = DaggerMock.rule<RootComponent>(ViewModelModule()) {
+    val daggerMockRule = DaggerMock.rule<RootComponent>(ViewModelModule()) {
         customizeBuilder<RootComponent.Builder> { it.application(ApplicationProvider.getApplicationContext()) }
         set { it.inject(ApplicationProvider.getApplicationContext()) }
     }

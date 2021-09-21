@@ -25,7 +25,7 @@ class CakeSearchViewModelTest {
     val coroutineScopeRule = MainCoroutineScopeRule()
 
     @get:Rule
-    val rule = InstantTaskExecutorRule()
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val searchCakesUseCase = mock<SearchCakesUseCase>()
 

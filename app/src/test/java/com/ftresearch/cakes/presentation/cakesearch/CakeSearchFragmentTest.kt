@@ -1,5 +1,6 @@
 package com.ftresearch.cakes.presentation.cakesearch
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
 import androidx.test.core.app.ApplicationProvider
@@ -23,10 +24,13 @@ import org.junit.runner.RunWith
 class CakeSearchFragmentTest {
 
     @get:Rule
-    val rule = DaggerMock.rule<RootComponent>(ViewModelModule()) {
+    val daggerMockRule = DaggerMock.rule<RootComponent>(ViewModelModule()) {
         customizeBuilder<RootComponent.Builder> { it.application(ApplicationProvider.getApplicationContext()) }
         set { it.inject(ApplicationProvider.getApplicationContext()) }
     }
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val cakesLiveData = MutableLiveData(CAKES)
 

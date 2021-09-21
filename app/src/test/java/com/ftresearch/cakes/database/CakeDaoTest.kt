@@ -28,7 +28,7 @@ class CakeDaoTest {
     val coroutineScopeRule = MainCoroutineScopeRule()
 
     @get:Rule
-    val rule = InstantTaskExecutorRule()
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var database: CakeDatabase
 

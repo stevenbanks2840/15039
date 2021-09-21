@@ -29,7 +29,7 @@ class CakesViewModelTest {
     val coroutineScopeRule = MainCoroutineScopeRule()
 
     @get:Rule
-    val rule = InstantTaskExecutorRule()
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val getCakesUseCase = mock<GetCakesUseCase>()
     private val getCakeSyncStateUseCase = mock<GetCakeSyncStateUseCase>()
