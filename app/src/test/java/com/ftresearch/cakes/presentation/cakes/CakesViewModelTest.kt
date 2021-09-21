@@ -36,16 +36,16 @@ class CakesViewModelTest {
     private val startCakeSyncUseCase = mock<StartCakeSyncUseCase>()
 
     private val cakesObserver = mock<Observer<List<Cake>>>()
-    private val cakeSyncStateObserver = mock<Observer<CakeSyncState>>()
-
     private val cakesArgumentCaptor = argumentCaptor<List<Cake>>()
+
+    private val cakeSyncStateObserver = mock<Observer<CakeSyncState>>()
     private val cakeSyncStateArgumentCaptor = argumentCaptor<CakeSyncState>()
 
     private lateinit var sut: CakesViewModel
 
     @Before
     fun setUp() {
-        whenever(getCakesUseCase()).thenReturn(CAKES)
+        whenever(getCakesUseCase()).thenReturn(CAKES_FLOW)
         whenever(getCakeSyncStateUseCase()).thenReturn(CAKE_SYNC_FLOW)
 
         sut = CakesViewModel(
@@ -62,7 +62,7 @@ class CakesViewModelTest {
     fun `should return cakes`() = coroutineScopeRule.runBlockingTest {
         verify(cakesObserver, times(1)).onChanged(cakesArgumentCaptor.capture())
 
-        assertEquals(TestData.cakes, cakesArgumentCaptor.firstValue)
+        assertEquals(CAKES, cakesArgumentCaptor.firstValue)
     }
 
     @Test
@@ -82,10 +82,10 @@ class CakesViewModelTest {
 
     private companion object {
 
-        val CAKES = flowOf(TestData.cakes)
+        val CAKES = TestData.cakes
+        val CAKES_FLOW = flowOf(CAKES)
 
         val CAKE_SYNC_STATE = CakeSyncState.Complete
-
         val CAKE_SYNC_FLOW = MutableSharedFlow<CakeSyncState>(
             replay = 1,
             extraBufferCapacity = 1

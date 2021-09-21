@@ -1,4 +1,4 @@
-package com.ftresearch.cakes.presentation.cakes
+package com.ftresearch.cakes.presentation.cakesearch
 
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +12,6 @@ import com.ftresearch.cakes.di.RootComponent
 import com.ftresearch.cakes.di.ViewModelModule
 import com.ftresearch.cakes.espresso.RecyclerViewMatchers.hasItemCount
 import com.ftresearch.cakes.presentation.TestData
-import com.ftresearch.cakes.sync.CakeSyncState
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import it.cosenonjaviste.daggermock.DaggerMock
@@ -21,7 +20,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class CakesFragmentTest {
+class CakeSearchFragmentTest {
 
     @get:Rule
     val rule = DaggerMock.rule<RootComponent>(ViewModelModule()) {
@@ -30,16 +29,14 @@ class CakesFragmentTest {
     }
 
     private val cakesLiveData = MutableLiveData(CAKES)
-    private val cakeSyncStateLiveData = MutableLiveData<CakeSyncState>(CakeSyncState.Complete)
 
-    private val viewModelMock = mock<CakesViewModel> {
-        on { cakes } doReturn (cakesLiveData)
-        on { cakeSyncState } doReturn (cakeSyncStateLiveData)
+    private val viewModelMock = mock<CakeSearchViewModel> {
+        on { searchResults } doReturn (cakesLiveData)
     }
 
     @Test
     fun `should initialise fragment when launched`() {
-        val fragmentScenario = launchFragmentInContainer<CakesFragment>(themeResId = R.style.AppTheme)
+        val fragmentScenario = launchFragmentInContainer<CakeSearchFragment>(themeResId = R.style.AppTheme)
 
         fragmentScenario.onFragment {
             onView(

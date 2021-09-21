@@ -22,7 +22,7 @@ class CakeRepository @Inject constructor(private val cakeDao: CakeDao) {
 
     fun searchCakes(text: String): List<Cake> {
         return cakeDao
-            .searchCakesByTitle(text)
+            .searchCakes(text)
             .map { cakeEntity -> cakeEntity.toCake() }
     }
 

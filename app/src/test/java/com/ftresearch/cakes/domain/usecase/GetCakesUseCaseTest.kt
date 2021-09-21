@@ -24,12 +24,17 @@ class GetCakesUseCaseTest {
 
     @Test
     fun `should return cakes`() = runBlocking {
-        val cakes = flowOf(TestData.cakes)
+        val cakes = flowOf(CAKES)
 
         whenever(cakeRepositoryMock.getCakes()).doReturn(cakes)
 
         val result = sut()
 
         assertEquals(cakes, result)
+    }
+
+    private companion object {
+
+        val CAKES = TestData.cakes
     }
 }

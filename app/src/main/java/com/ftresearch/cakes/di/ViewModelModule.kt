@@ -8,7 +8,7 @@ import com.ftresearch.cakes.domain.usecase.GetCakesUseCase
 import com.ftresearch.cakes.domain.usecase.SearchCakesUseCase
 import com.ftresearch.cakes.domain.usecase.StartCakeSyncUseCase
 import com.ftresearch.cakes.presentation.cakes.CakesViewModel
-import com.ftresearch.cakes.presentation.cakesearch.CakesSearchViewModel
+import com.ftresearch.cakes.presentation.cakesearch.CakeSearchViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -27,7 +27,7 @@ class ViewModelModule {
     fun providesCakesSearchViewModel(
         searchCakesUseCase: SearchCakesUseCase,
         dispatcherProvider: DispatcherProvider
-    ) = CakesSearchViewModel(searchCakesUseCase, dispatcherProvider) // DaggerMock only support @Provides
+    ) = CakeSearchViewModel(searchCakesUseCase, dispatcherProvider) // DaggerMock only support @Provides
 
     @Provides
     @IntoMap
@@ -36,6 +36,6 @@ class ViewModelModule {
 
     @Provides
     @IntoMap
-    @ViewModelKey(CakesSearchViewModel::class)
-    fun bindCakesSearchViewModel(viewModel: CakesSearchViewModel): ViewModel = viewModel
+    @ViewModelKey(CakeSearchViewModel::class)
+    fun bindCakesSearchViewModel(viewModel: CakeSearchViewModel): ViewModel = viewModel
 }

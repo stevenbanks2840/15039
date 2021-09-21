@@ -8,14 +8,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.ftresearch.cakes.R
 
-fun Fragment.setupActionBar(toolbar: Toolbar) {
-    toolbar.isVisible = true
-
-    (activity as? AppCompatActivity)?.run {
-        setSupportActionBar(toolbar)
-    }
-}
-
 fun Fragment.setupActionBarNavigation(toolbar: Toolbar) {
     toolbar.isVisible = true
 

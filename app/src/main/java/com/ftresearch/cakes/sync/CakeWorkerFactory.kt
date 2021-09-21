@@ -4,14 +4,10 @@ import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import com.ftresearch.cakes.domain.repository.CakeRepository
-import com.ftresearch.cakes.network.service.CakeService
 import javax.inject.Inject
 
 class CakeWorkerFactory @Inject constructor(
-    private val cakeSyncRepository: CakeSyncRepository,
-    private val cakeRepository: CakeRepository,
-    private val cakeService: CakeService
+    private val cakeSynchronizer: CakeSynchronizer
 ) : WorkerFactory() {
 
     override fun createWorker(appContext: Context, workerClassName: String, workerParameters: WorkerParameters): ListenableWorker? {
@@ -19,9 +15,7 @@ class CakeWorkerFactory @Inject constructor(
             CakeSyncWorker::class.java.name -> CakeSyncWorker(
                 context = appContext,
                 parameters = workerParameters,
-                cakeSyncRepository = cakeSyncRepository,
-                cakeRepository = cakeRepository,
-                cakeService = cakeService
+                cakeSynchronizer = cakeSynchronizer
             )
 
             else -> null

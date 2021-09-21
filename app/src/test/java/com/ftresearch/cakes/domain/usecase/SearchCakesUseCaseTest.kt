@@ -23,12 +23,15 @@ class SearchCakesUseCaseTest {
 
     @Test
     fun `should return cakes`() = runBlocking {
-        val cakes = TestData.cakes
-
-        whenever(cakeRepositoryMock.searchCakes("Any")).doReturn(cakes)
+        whenever(cakeRepositoryMock.searchCakes("Any")).doReturn(CAKES)
 
         val result = sut("Any")
 
-        assertEquals(cakes, result)
+        assertEquals(CAKES, result)
+    }
+
+    private companion object {
+
+        val CAKES = TestData.cakes
     }
 }

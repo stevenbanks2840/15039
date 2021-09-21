@@ -26,26 +26,32 @@ class CakesRepositoryTest {
 
     @Test
     fun `getCakes should return cake entities`() = runBlocking {
-        whenever(cakeDaoMock.getCakes()).doReturn(flowOf(TestData.cakeEntities))
+        whenever(cakeDaoMock.getCakes()).doReturn(flowOf(CAKE_ENTITIES))
 
         val result = sut.getCakes().first()
 
-        assertEquals(TestData.cakes, result)
+        assertEquals(CAKES, result)
     }
 
     @Test
     fun `searchCakes should return cake entities`() = runBlocking {
-        whenever(cakeDaoMock.searchCakesByTitle("Any")).doReturn(TestData.cakeEntities)
+        whenever(cakeDaoMock.searchCakes("Any")).doReturn(CAKE_ENTITIES)
 
         val result = sut.searchCakes("Any")
 
-        assertEquals(TestData.cakes, result)
+        assertEquals(CAKES, result)
     }
 
     @Test
     fun `insertCakes should insert cake entities`() = runBlocking {
         sut.insertCakes(TestData.cakes)
 
-        verify(cakeDaoMock).deleteAllAndInsertCakes(TestData.cakeEntities)
+        verify(cakeDaoMock).deleteAllAndInsertCakes(CAKE_ENTITIES)
+    }
+
+    private companion object {
+
+        val CAKE_ENTITIES = TestData.cakeEntities
+        val CAKES = TestData.cakes
     }
 }

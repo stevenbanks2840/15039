@@ -10,7 +10,7 @@ import com.ftresearch.cakes.domain.usecase.SearchCakesUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CakesSearchViewModel @Inject constructor(
+class CakeSearchViewModel @Inject constructor(
     private val searchCakesUseCase: SearchCakesUseCase,
     private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {

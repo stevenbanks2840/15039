@@ -1,6 +1,5 @@
 package com.ftresearch.cakes.presentation.cakedetail
 
-import androidx.core.os.bundleOf
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -19,27 +18,30 @@ class CakeDetailFragmentTest {
     fun `should initialise fragment when launched`() {
         val fragmentScenario = launchFragmentInContainer<CakeDetailFragment>(
             themeResId = R.style.AppTheme,
-            fragmentArgs = bundleOf(
-                "title" to TestData.cake1.title,
-                "cake" to TestData.cake1,
-                "showTransition" to false
-            )
+            fragmentArgs = CakeDetailFragmentArgs.Builder(CAKE.title, false, CAKE)
+                .build()
+                .toBundle()
         )
 
         fragmentScenario.onFragment {
             onView(
                 withId(R.id.cakeDetailDescription)
             ).check(
-                matches(withText(TestData.cake1.desc))
+                matches(withText(CAKE.desc))
             )
 
             onView(
                 withId(R.id.cakeDetailDetail)
             ).check(
-                matches(withText(TestData.cake1.detail))
+                matches(withText(CAKE.detail))
             )
         }
     }
 
     // TODO: Add more UI tests e.g. refresh and error handling
+
+    private companion object {
+
+        val CAKE = TestData.cakes[1]
+    }
 }

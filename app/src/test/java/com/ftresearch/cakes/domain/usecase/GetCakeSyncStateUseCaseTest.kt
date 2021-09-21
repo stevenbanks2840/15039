@@ -24,12 +24,15 @@ class GetCakeSyncStateUseCaseTest {
 
     @Test
     fun `should return cake sync state`() = runBlocking {
-        val flow = mock<SharedFlow<CakeSyncState>>()
-
-        whenever(cakeSyncRepository.syncState) doReturn (flow)
+        whenever(cakeSyncRepository.syncState) doReturn (CAKES_FLOW)
 
         val result = sut()
 
-        assertEquals(flow, result)
+        assertEquals(CAKES_FLOW, result)
+    }
+
+    private companion object {
+
+        val CAKES_FLOW = mock<SharedFlow<CakeSyncState>>()
     }
 }

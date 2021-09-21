@@ -11,7 +11,7 @@ interface CakeDao {
     fun getCakes(): Flow<List<CakeEntity>>
 
     @Query("SELECT * FROM cakes WHERE (title LIKE '%' || :search || '%') OR (`desc` LIKE '%' || :search || '%') ORDER BY title ASC")
-    fun searchCakesByTitle(search: String): List<CakeEntity>
+    fun searchCakes(search: String): List<CakeEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCakes(cakes: List<CakeEntity>)

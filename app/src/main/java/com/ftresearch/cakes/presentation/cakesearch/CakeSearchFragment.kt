@@ -24,7 +24,7 @@ class CakeSearchFragment : DaggerFragment() {
 
     private val adapter = CakeSearchAdapter(::showCake)
 
-    private val viewModel: CakesSearchViewModel by viewModels {
+    private val viewModel: CakeSearchViewModel by viewModels {
         viewModeFactory
     }
 
