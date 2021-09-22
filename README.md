@@ -5,10 +5,11 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=stevenbanks2840_15039&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=stevenbanks2840_15039)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=stevenbanks2840_15039&metric=bugs)](https://sonarcloud.io/dashboard?id=stevenbanks2840_15039)
 
-15039 is a small Android project demonstrating Clean Architecture. The following:
+15039 is a small Android project demonstrating Clean Architecture. The following items are demonstrated:
 
 - MVVM
 - Single Activity Application
+- Dagger dependency injection
 - WorkManager (background processing)
 - Room (database storage)
 - Navigation Component
