@@ -7,18 +7,22 @@
 
     <fragment
         android:id="@+id/CakesFragment"
-        android:name="com.ftresearch.cakes.ui.cakes.CakesFragment"
+        android:name="com.ftresearch.cakes.presentation.cakes.CakesFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_cakes">
 
         <action
             android:id="@+id/action_cakes_to_cake_detail"
             app:destination="@id/CakeDetailFragment" />
+
+        <action
+            android:id="@+id/action_cakes_to_cake_search"
+            app:destination="@id/CakeSearchFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/CakeDetailFragment"
-        android:name="com.ftresearch.cakes.ui.cakedetail.CakeDetailFragment"
+        android:name="com.ftresearch.cakes.presentation.cakedetail.CakeDetailFragment"
         android:label="{title}"
         tools:layout="@layout/fragment_cake_detail">
 
@@ -27,7 +31,23 @@
             app:argType="string" />
 
         <argument
+            android:name="showTransition"
+            app:argType="boolean" />
+
+        <argument
             android:name="cake"
-            app:argType="com.ftresearch.cakes.rest.cake.Cake" />
+            app:argType="com.ftresearch.cakes.domain.model.Cake" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/CakeSearchFragment"
+        android:name="com.ftresearch.cakes.presentation.cakesearch.CakeSearchFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_cake_search">
+
+        <action
+            android:id="@+id/action_cakes_search_to_cake_detail"
+            app:destination="@id/CakeDetailFragment"
+            app:popUpTo="@+id/CakesFragment" />
     </fragment>
 </navigation>
