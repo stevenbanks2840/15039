@@ -1,11 +1,17 @@
 package com.ftresearch.cakes.presentation.cakes
 
+import android.view.MenuItem
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.Navigation
+import androidx.navigation.testing.TestNavHostController
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +25,7 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import it.cosenonjaviste.daggermock.DaggerMock
 import org.hamcrest.CoreMatchers.not
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -42,6 +49,11 @@ class CakesFragmentTest {
     private val viewModelMock = mock<CakesViewModel> {
         on { cakes } doReturn (cakesLiveData)
         on { cakeSyncState } doReturn (cakeSyncStateLiveData)
+    }
+
+    private val navController = TestNavHostController(ApplicationProvider.getApplicationContext()).apply {
+        setGraph(R.navigation.nav_graph)
+        setCurrentDestination(R.id.CakesFragment)
     }
 
     @Test
@@ -133,6 +145,52 @@ class CakesFragmentTest {
             ).check(
                 matches(not(isDisplayed()))
             )
+        }
+    }
+
+    @Test
+    fun `should navigate to cake detail when item clicked`() {
+        val fragmentScenario = launchFragmentInContainer {
+            CakesFragment().also { fragment ->
+                fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
+                    if (viewLifecycleOwner != null) {
+                        Navigation.setViewNavController(fragment.requireView(), navController)
+                    }
+                }
+            }
+        }
+
+        fragmentScenario.onFragment {
+            onView(
+                withId(R.id.recyclerView)
+            ).perform(
+                actionOnItemAtPosition<ViewHolder>(0, click())
+            )
+
+            assertEquals(R.id.CakeDetailFragment, navController.currentDestination?.id)
+        }
+    }
+
+    @Test
+    fun `should navigate to cake search when search button clicked`() {
+        val fragmentScenario = launchFragmentInContainer {
+            CakesFragment().also { fragment ->
+                fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
+                    if (viewLifecycleOwner != null) {
+                        Navigation.setViewNavController(fragment.requireView(), navController)
+                    }
+                }
+            }
+        }
+
+        fragmentScenario.onFragment { fragment ->
+            val menuItem = mock<MenuItem> {
+                on { itemId } doReturn (R.id.action_search)
+            }
+
+            fragment.onOptionsItemSelected(menuItem)
+
+            assertEquals(R.id.CakeSearchFragment, navController.currentDestination?.id)
         }
     }
 

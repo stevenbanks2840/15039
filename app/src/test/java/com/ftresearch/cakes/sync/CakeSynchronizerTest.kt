@@ -17,7 +17,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.inOrder
 
-
 @ExperimentalCoroutinesApi
 class CakeSynchronizerTest {
 
